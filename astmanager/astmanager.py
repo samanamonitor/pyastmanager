@@ -82,12 +82,10 @@ class AstManager:
             extension = i.pop('extension')
             ext = ctx.setdefault('extensions', {}).setdefault(extension, {})
             priority = i.pop('priority')
-            prio = ext.setdefault('priorities', {}).setdefault(priority, [])
-            prio += [i]
+            prio = ext.setdefault('priorities', {}).setdefault(priority, i)
           elif 'includecontext' in i:
             inc = i.pop('includecontext')
-            ic = ctx.setdefault('includecontext', {}).setdefault(inc, {})
-            ic = i
+            ic = ctx.setdefault('includecontext', {}).setdefault(inc, i)
         return dp
 
 
