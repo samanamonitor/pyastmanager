@@ -74,6 +74,9 @@ class AstManager:
         dp={}
         for i in self._events:
           event = i.pop('event')
+          registrar = i.pop('registrar')
+          if registrar != 'pbx_config':
+            print(registrar)
           if event != 'ListDialplan':
             continue
           context_name = i.pop('context')
