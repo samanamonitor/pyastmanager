@@ -67,6 +67,25 @@ class AstManager:
             'Interface': interface
             })
 
+    def listdialplan(self):
+        self._request({
+            'action': 'listdialplan'
+            })
+        dp={}
+        for i in self._events:
+          if i['event'] != 'ListDialplan':
+            continue
+          ctx = dp.setdefault(i['context'], {})
+          if 'extension' in i:
+            ext = ctx.setdefault(i['extension'], {})
+            prio = ext.setdefault(i['priority'], [])
+            prio += [i]
+          elif 'includecontext' in i:
+            ic = ctx.setdefault(i['includecontext'], [])
+            ic += [i]
+        return dp
+
+
     def get_queue_members(self, queue):
         res = self._request({
             'action': 'QueueStatus',
