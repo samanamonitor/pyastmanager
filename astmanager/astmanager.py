@@ -67,7 +67,7 @@ class AstManager:
             'Interface': interface
             })
 
-    def listdialplan(self):
+    def showdialplan(self):
         self._request({
             'action': 'showdialplan'
             })
@@ -77,11 +77,11 @@ class AstManager:
             continue
           ctx = dp.setdefault(i['context'], {})
           if 'extension' in i:
-            ext = ctx.setdefault(i['extension'], {})
-            prio = ext.setdefault(i['priority'], [])
+            ext = ctx.setdefault('extensions', {}).setdefault(i['extension'], {})
+            prio = ext.setdefault('priorities', {}).setdefault(i['priority'], [])
             prio += [i]
           elif 'includecontext' in i:
-            ic = ctx.setdefault(i['includecontext'], [])
+            ic = ctx.setdefault('includecontext', {}).setdefault(i['includecontext'], [])
             ic += [i]
         return dp
 
