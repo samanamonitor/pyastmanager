@@ -73,20 +73,55 @@ class AstManager:
             })
         dp={}
         for i in self._events:
-          event = i.pop('event')
-          if event != 'ListDialplan':
-            continue
-          context_name = i.pop('context')
-          ctx = dp.setdefault(context_name, {})
-          if 'extension' in i:
-            extension = i.pop('extension')
-            ext = ctx.setdefault('extensions', {}).setdefault(extension, {})
-            priority = i.pop('priority')
-            prio = ext.setdefault('priorities', {}).setdefault(priority, i)
-          elif 'includecontext' in i:
-            inc = i.pop('includecontext')
-            ic = ctx.setdefault('includecontext', {}).setdefault(inc, i)
+            event = i.pop('event')
+            if event != 'ListDialplan':
+                continue
+            context_name = i.pop('context')
+            ctx = dp.setdefault(context_name, {})
+            if 'extension' in i:
+                extension = i.pop('extension')
+                ext = ctx.setdefault('extensions', {}).setdefault(extension, {})
+                priority = i.pop('priority')
+                prio = ext.setdefault('priorities', {}).setdefault(priority, i)
+            elif 'includecontext' in i:
+                inc = i.pop('includecontext')
+                ic = ctx.setdefault('includecontext', {}).setdefault(inc, i)
         return dp
+    def originate(self, exten=None, context=None, priority=None, application=None,
+            data=None, timeout=None, callerid=None, variable=None, account=None,
+            earlymedia=None, async=None, codecs=None, channelid=None,
+            otherchannelid=None, predialgosub=None):
+        action = {
+            'action': 'Originate'
+        }
+        if isinstance(exten, str):
+            action['exten'] = exten
+            action['context'] = context
+            action['priority'] = priority
+        if isinstance(application, str):
+            action['Application'] = application
+            action['Data'] = data
+        if isinstance(timeout, int):
+            action['timeout'] = timeout
+        if isinstance(callerid, str):
+            action['callerid'] = callerid
+        if isinstance(variable, str):
+            action['Variable'] = variable
+        if isinstance(account, str):
+            action['Account'] = account
+        if isinstance(earlymedia, str):
+            action['EarlyMedia'] = earlymedia
+        if isinstance(async, bool):
+            action['Async'] = async
+        if isinstance(codecs, str):
+            action['Codecs'] = codecs
+        if isinstance(channelid, str):
+            action['ChannelId'] = channelid
+        if isinstance(otherchannelid, str):
+            action['OtherChannelId'] = otherchannelid
+        if isinstance(predialgosub, str):
+            action['PreDialGoSub'] = predialgosub
+        self._request(action)
 
 
     def get_queue_members(self, queue):
