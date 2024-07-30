@@ -86,8 +86,8 @@ class AstManager:
             prio += [i]
           elif 'includecontext' in i:
             inc = i.pop('includecontext')
-            ic = ctx.setdefault('includecontext', {}).setdefault(inc, [])
-            ic += [i]
+            ic = ctx.setdefault('includecontext', {}).setdefault(inc, {})
+            ic = i
         return dp
 
 
