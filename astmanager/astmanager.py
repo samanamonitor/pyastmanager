@@ -87,9 +87,10 @@ class AstManager:
                 inc = i.pop('includecontext')
                 ic = ctx.setdefault('includecontext', {}).setdefault(inc, i)
         return dp
-    def originate(self, exten=None, context=None, priority=None, application=None,
-            data=None, timeout=None, callerid=None, variable=None, account=None,
-            earlymedia=None, async_origination=None, codecs=None, channelid=None,
+    def originate(self, channel=None, exten=None, context=None, priority=None,
+            application=None, data=None, timeout=None, callerid=None,
+            variable=None, account=None, earlymedia=None,
+            async_origination=None, codecs=None, channelid=None,
             otherchannelid=None, predialgosub=None):
         action = {
             'action': 'Originate'
