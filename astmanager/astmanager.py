@@ -89,7 +89,7 @@ class AstManager:
         return dp
     def originate(self, exten=None, context=None, priority=None, application=None,
             data=None, timeout=None, callerid=None, variable=None, account=None,
-            earlymedia=None, async=None, codecs=None, channelid=None,
+            earlymedia=None, async_origination=None, codecs=None, channelid=None,
             otherchannelid=None, predialgosub=None):
         action = {
             'action': 'Originate'
@@ -111,8 +111,8 @@ class AstManager:
             action['Account'] = account
         if isinstance(earlymedia, str):
             action['EarlyMedia'] = earlymedia
-        if isinstance(async, bool):
-            action['Async'] = async
+        if isinstance(async_origination, bool):
+            action['Async'] = async_origination
         if isinstance(codecs, str):
             action['Codecs'] = codecs
         if isinstance(channelid, str):
