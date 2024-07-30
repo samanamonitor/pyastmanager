@@ -69,7 +69,7 @@ class AstManager:
 
     def listdialplan(self):
         self._request({
-            'action': 'listdialplan'
+            'action': 'showdialplan'
             })
         dp={}
         for i in self._events:
