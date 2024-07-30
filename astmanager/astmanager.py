@@ -73,15 +73,20 @@ class AstManager:
             })
         dp={}
         for i in self._events:
-          if i['event'] != 'ListDialplan':
+          event = i.pop('event')
+          if event != 'ListDialplan':
             continue
-          ctx = dp.setdefault(i['context'], {})
+          context_name = i.pop('context')
+          ctx = dp.setdefault(context_name, {})
           if 'extension' in i:
-            ext = ctx.setdefault('extensions', {}).setdefault(i['extension'], {})
-            prio = ext.setdefault('priorities', {}).setdefault(i['priority'], [])
+            extension = i.pop('extension')
+            ext = ctx.setdefault('extensions', {}).setdefault(extension, {})
+            priority = i.pop('priority')
+            prio = ext.setdefault('priorities', {}).setdefault(priority, [])
             prio += [i]
           elif 'includecontext' in i:
-            ic = ctx.setdefault('includecontext', {}).setdefault(i['includecontext'], [])
+            inc = i.pop('includecontext')
+            ic = ctx.setdefault('includecontext', {}).setdefault(inc, [])
             ic += [i]
         return dp
 
