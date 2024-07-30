@@ -95,10 +95,12 @@ class AstManager:
         action = {
             'action': 'Originate'
         }
+        if isinstance(channel, str):
+            action['Channel'] = channel
         if isinstance(exten, str):
-            action['exten'] = exten
-            action['context'] = context
-            action['priority'] = priority
+            action['Exten'] = exten
+            action['Context'] = context
+            action['Priority'] = priority
         if isinstance(application, str):
             action['Application'] = application
             action['Data'] = data
